@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Watch Ads to Unlock Download</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Ad Provider Script -->
+  <script src="https://ad.gigapub.tech/script?id=2067"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .progress-text {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      background: #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #4caf50;
+      transition: width 0.3s ease;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    .download-link {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .download-link a {
+      display: inline-block;
+      padding: 12px 20px;
+      background: #28a745;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Watch Ads to Unlock</h1>
+    <p>Watch 30 ads to unlock your download link.</p>
+
+    <div class="progress-text" id="progressText">
+      0 / 30 Ads Watched
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <button id="watchAdBtn">Watch Ad</button>
+
+    <div class="download-link" id="downloadLink">
+      <a href="https://example.com/download" target="_blank">
+        Click to Download
+      </a>
+    </div>
+  </div>
+
+  <script>
+    let adsWatched = 0;
+    const totalAds = 30;
+
+    const watchAdBtn = document.getElementById("watchAdBtn");
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+    const downloadLink = document.getElementById("downloadLink");
+
+    watchAdBtn.addEventListener("click", () => {
+      watchAdBtn.disabled = true;
+
+      window.showGiga()
+        .then(() => {
+          adsWatched++;
+          updateProgress();
+        })
+        .catch(() => {
+          alert("Ad was not completed. Please try again.");
+        })
+        .finally(() => {
+          if (adsWatched < totalAds) {
+            watchAdBtn.disabled = false;
+          }
+        });
+    });
+
+    function updateProgress() {
+      progressText.textContent = `${adsWatched} / ${totalAds} Ads Watched`;
+      progressFill.style.width = `${(adsWatched / totalAds) * 100}%`;
+
+      if (adsWatched >= totalAds) {
+        watchAdBtn.style.display = "none";
+        downloadLink.style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
